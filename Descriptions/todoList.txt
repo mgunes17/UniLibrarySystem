@@ -1,0 +1,48 @@
+Proje Planı
+	Proje Alan Tanımı
+	Kabul ve Kısıtlar
+	İş-Zaman Çizelgesi
+		Gant (Visio)
+	Risk Tablosu(Daha gelmedik, slayt 123)
+	Gereksinim Mühendisliği(çünkü gerekli)
+	
+İsteklerin Modellenmesi
+	Bilgi Toplama-İsteklerin Düz Metinle Belirtilmesi
+	Kullanım Senaryoları ve Use Case(Violet)
+	Senaryo metinleri ve Sözleşmeler(Gerekirse-Birkaç tane)
+
+Modelleme
+	Sınıf Diyagramı
+	ER
+	
+Tasarım
+	Sequence
+	Activity
+	State
+	ER to Tables	
+	Page Design	
+
+JSP-Servlet
+Mysql-Hibernate 
+Html Css JS
+
+Netbeans, Atom, Mysql Benchmark, Tomcat
+
+Github
+MVC
+Design Patterns -Principles
+	SOLID
+	Singleton? Factory?
+
+Ekip Görev Dağılımı
+		Roller
+			1 Müşteri
+			2 Yazılım Tasarımı
+			3 Görsel Tasarım
+			4 Kodlama
+			5 Test
+		Ekip
+			Mustafa 2,4
+			Ercan 2,4
+			Berkay 3
+			Onur 1,5

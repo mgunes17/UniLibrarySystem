@@ -1,0 +1,41 @@
+Değinilmemiş kural ve ayrıntılar var. Varsayımlar belirt.
+Büyük ölçekli yeni özellik ekleme
+
+Kitap ve dergiler var
+DVD ler ileride eklenebilir (Open-closed?)
+
+Bunlar ödünç alınabilir ya da rezervasyonla ayrılabilir
+Bu hizmetler akıllı kart ile sunulur.
+(Not kart numarası ve şifre?)
+
+Kullanıcı tipleri Öğrenci, öğretim üyesi, memur.(polymorphism)
+Gelecekte yeni kullanıcı tipi olmayacak.
+
+Ders kitaplarını sadece öğretim üyeleri ödünç alabilir
+(Dmek ki sadece onlar rezerve edebilir)
+
+Ö.Ü 6, Diğer iki tipin 3 kitap alma hakkı var
+Ö.Ü 3 ay, "  "    "    1 aylık hakkı var
+Yönetim bunu değiştirebilir
+(Global parametre tablosuna ekle)
+(Süre uzatma hakkı ?)
+
+Kiosk kitap al(kiosk singleton?)
+kartı okut(numara input + kitap id input)) şifre gir
+Kitap alamama durumu 
+	limit dolduysa
+	STT geçmiş kitabı yoksa
+	
+İade ederken kartı okut(numara input+ kitap id input)
+	stt geçmişse kart bakiyesinden 1 tl düş
+(kart bakiyesi . başlangıç için 5 tl (global parametre))
+bakiye -1ken kitap alamasın)
+Kullanıcı hesabı kapatırken parayı iade et- bağış yap seçenek sun
+Kullanıcı tanımlı banka hesabı + kütüphane global bakiyesi
+İşlem loglarını kaydet - zaman kalırsa?	
+
+Rezerve edilmek istenen kitap bir kullanıcıdaysa
+	İade edilince rezerve süresi başlar ve rezerve eden kullanıcıya mail gider
+	
+rezerve süresi - (global tabloya)
+	
