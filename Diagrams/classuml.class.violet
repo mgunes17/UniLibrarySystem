@@ -303,19 +303,19 @@ Envanter</string>
      <string>x</string>
      <void method="set">
       <object idref="Point2D$Double7"/>
-      <double>844.0</double>
+      <double>871.0</double>
      </void>
     </void>
     <void class="java.awt.geom.Point2D$Double" method="getField">
      <string>y</string>
      <void method="set">
       <object idref="Point2D$Double7"/>
-      <double>174.0</double>
+      <double>287.0</double>
      </void>
     </void>
     <void method="setLocation">
-     <double>844.0</double>
-     <double>174.0</double>
+     <double>871.0</double>
+     <double>287.0</double>
     </void>
    </object>
   </void>
@@ -414,7 +414,7 @@ Envanter</string>
     <void property="name">
      <void property="text">
       <string>«interface»
-Item</string>
+ItemOperation</string>
      </void>
     </void>
    </object>
@@ -423,19 +423,19 @@ Item</string>
      <string>x</string>
      <void method="set">
       <object idref="Point2D$Double10"/>
-      <double>661.0</double>
+      <double>862.0</double>
      </void>
     </void>
     <void class="java.awt.geom.Point2D$Double" method="getField">
      <string>y</string>
      <void method="set">
       <object idref="Point2D$Double10"/>
-      <double>368.0</double>
+      <double>514.0</double>
      </void>
     </void>
     <void method="setLocation">
-     <double>661.0</double>
-     <double>368.0</double>
+     <double>862.0</double>
+     <double>514.0</double>
     </void>
    </object>
   </void>
@@ -555,30 +555,6 @@ Item</string>
   </void>
   <void method="connect">
    <object class="com.horstmann.violet.ClassRelationshipEdge">
-    <void property="endArrowHead">
-     <object class="com.horstmann.violet.ArrowHead" field="V"/>
-    </void>
-    <void property="lineStyle">
-     <object class="com.horstmann.violet.LineStyle" field="DOTTED"/>
-    </void>
-   </object>
-   <object idref="ClassNode6"/>
-   <object idref="InterfaceNode0"/>
-  </void>
-  <void method="connect">
-   <object class="com.horstmann.violet.ClassRelationshipEdge">
-    <void property="endArrowHead">
-     <object class="com.horstmann.violet.ArrowHead" field="V"/>
-    </void>
-    <void property="lineStyle">
-     <object class="com.horstmann.violet.LineStyle" field="DOTTED"/>
-    </void>
-   </object>
-   <object idref="ClassNode5"/>
-   <object idref="InterfaceNode0"/>
-  </void>
-  <void method="connect">
-   <object class="com.horstmann.violet.ClassRelationshipEdge">
     <void property="bentStyle">
      <object class="com.horstmann.violet.BentStyle" field="VHV"/>
     </void>
@@ -594,6 +570,18 @@ Item</string>
   </void>
   <void method="connect">
    <object class="com.horstmann.violet.ClassRelationshipEdge">
+    <void property="endArrowHead">
+     <object class="com.horstmann.violet.ArrowHead" field="V"/>
+    </void>
+    <void property="lineStyle">
+     <object class="com.horstmann.violet.LineStyle" field="DOTTED"/>
+    </void>
+   </object>
+   <object idref="ClassNode5"/>
+   <object idref="ClassNode0"/>
+  </void>
+  <void method="connect">
+   <object class="com.horstmann.violet.ClassRelationshipEdge">
     <void property="bentStyle">
      <object class="com.horstmann.violet.BentStyle" field="HVH"/>
     </void>
@@ -602,7 +590,7 @@ Item</string>
     </void>
    </object>
    <object idref="ClassNode0"/>
-   <object idref="InterfaceNode0"/>
+   <object idref="ClassNode7"/>
   </void>
   <void method="connect">
    <object class="com.horstmann.violet.ClassRelationshipEdge">
@@ -614,7 +602,19 @@ Item</string>
     </void>
    </object>
    <object idref="ClassNode5"/>
-   <object idref="ClassNode0"/>
+   <object idref="ClassNode7"/>
+  </void>
+  <void method="connect">
+   <object class="com.horstmann.violet.ClassRelationshipEdge">
+    <void property="endArrowHead">
+     <object class="com.horstmann.violet.ArrowHead" field="V"/>
+    </void>
+    <void property="lineStyle">
+     <object class="com.horstmann.violet.LineStyle" field="DOTTED"/>
+    </void>
+   </object>
+   <object idref="ClassNode6"/>
+   <object idref="ClassNode7"/>
   </void>
  </object>
 </java>
