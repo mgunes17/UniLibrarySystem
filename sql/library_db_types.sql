@@ -26,8 +26,7 @@ CREATE TABLE `types` (
   `type_no` smallint(1) NOT NULL,
   `title` varchar(10) DEFAULT NULL,
   `main_page` varchar(30) DEFAULT NULL,
-  PRIMARY KEY (`type_no`),
-  CONSTRAINT `typeFK` FOREIGN KEY (`type_no`) REFERENCES `users` (`user_type`) ON DELETE NO ACTION ON UPDATE NO ACTION
+  PRIMARY KEY (`type_no`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -49,4 +48,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2016-04-11 23:04:48
+-- Dump completed on 2016-04-13  0:09:26
