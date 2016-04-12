@@ -25,11 +25,13 @@ DROP TABLE IF EXISTS `items`;
 CREATE TABLE `items` (
   `item_no` int(11) NOT NULL,
   `state` smallint(1) NOT NULL,
-  `current_user` int(11) DEFAULT NULL,
+  `current_user` varchar(45) DEFAULT NULL,
   `item_type` smallint(1) NOT NULL,
   PRIMARY KEY (`item_no`),
   KEY `typeFK_idx` (`item_type`),
   KEY `stateFK_idx` (`state`),
+  KEY `currentUserFK_idx` (`current_user`),
+  CONSTRAINT `currentUserFK` FOREIGN KEY (`current_user`) REFERENCES `users` (`mail`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `itemtypeFK` FOREIGN KEY (`item_type`) REFERENCES `types` (`type_no`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `stateFK` FOREIGN KEY (`state`) REFERENCES `state` (`state_id`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -53,4 +55,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2016-04-11 23:04:47
+-- Dump completed on 2016-04-13  0:09:25
