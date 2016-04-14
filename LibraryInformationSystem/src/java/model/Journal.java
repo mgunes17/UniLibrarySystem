@@ -7,8 +7,8 @@ package model;
 public class Journal {
     private int itemNo;
     private String editor;
-    private String issue;
-    private int publisher;
+    private int issue;
+    private String publisher;
     
     void detailedInfo(){
         System.out.println(editor + publisher + issue + itemNo);
