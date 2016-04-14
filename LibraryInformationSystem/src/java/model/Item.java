@@ -8,7 +8,7 @@ import javax.persistence.Table;
 
 
 @Entity
-@Table(name="items")
+@Table(name="item")
 public class Item implements Serializable{
     @Id
     @Column(name="item_no")
