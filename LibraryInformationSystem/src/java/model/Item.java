@@ -1,10 +1,55 @@
 package model;
 
-public abstract class Item implements ItemOperationable{
+import java.io.Serializable;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+
+@Entity
+@Table(name="items")
+public class Item implements Serializable{
+    @Id
+    @Column(name="item_no")
     private int itemNo;
+    @Column(name="state", nullable=false)
     private int state;
-    private User currentUser;
+    @Column(name="current_user")
+    private String currentUser;
+    @Column(name="item_type", nullable=false)
     private int itemType;
-    
+
+    public int getItemNo() {
+        return itemNo;
+    }
+
+    public void setItemNo(int itemNo) {
+        this.itemNo = itemNo;
+    }
+
+    public int getState() {
+        return state;
+    }
+
+    public void setState(int state) {
+        this.state = state;
+    }
+
+    public String getCurrentUser() {
+        return currentUser;
+    }
+
+    public void setCurrentUser(String currentUser) {
+        this.currentUser = currentUser;
+    }
+
+    public int getItemType() {
+        return itemType;
+    }
+
+    public void setItemType(int itemType) {
+        this.itemType = itemType;
+    }
     
 }
