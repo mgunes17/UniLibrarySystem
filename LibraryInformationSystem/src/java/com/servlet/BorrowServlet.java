@@ -81,8 +81,7 @@ public class BorrowServlet extends HttpServlet {
         else{
             // item operation tablosuna ekle
             request.setAttribute("state", 4); // state 4 means item is available and card is valid. borrow operation will be processed.
-            request.getRequestDispatcher("/kiosk.jsp").forward(request, response);
-            
+            request.getRequestDispatcher("/kiosk.jsp").forward(request, response); 
         }
     }
 }
