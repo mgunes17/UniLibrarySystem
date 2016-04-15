@@ -10,9 +10,10 @@
 -soyad
 -mail
 -tel
+-kullanıcı_tipi
 -sahipolduğuenvanter sayısı
 -itemList[] : Item
-+iban()</string>
+-iban()</string>
      </void>
     </void>
     <void property="methods">
@@ -366,7 +367,7 @@ Envanter</string>
      <void property="text">
       <string>-editör
 -sayı
-</string>
+-yayınlanma_tarihi</string>
      </void>
     </void>
     <void property="methods">
@@ -385,19 +386,19 @@ Envanter</string>
      <string>x</string>
      <void method="set">
       <object idref="Point2D$Double9"/>
-      <double>932.0</double>
+      <double>934.0</double>
      </void>
     </void>
     <void class="java.awt.geom.Point2D$Double" method="getField">
      <string>y</string>
      <void method="set">
       <object idref="Point2D$Double9"/>
-      <double>34.0</double>
+      <double>14.0</double>
      </void>
     </void>
     <void method="setLocation">
-     <double>932.0</double>
-     <double>34.0</double>
+     <double>934.0</double>
+     <double>14.0</double>
     </void>
    </object>
   </void>
