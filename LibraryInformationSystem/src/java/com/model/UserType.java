@@ -18,6 +18,7 @@ import javax.persistence.Table;
 @Table(name = "user_type")
 public class UserType {
     @Id
+    @Column(name = "type_no")
     private int typeNo;
     @Column(name = "title")
     private String title;
@@ -25,4 +26,36 @@ public class UserType {
     private String mainPage;
     @Column(name = "max_limit")
     private int maxLimit;
+
+    public int getTypeNo() {
+        return typeNo;
+    }
+
+    public void setTypeNo(int typeNo) {
+        this.typeNo = typeNo;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public String getMainPage() {
+        return mainPage;
+    }
+
+    public void setMainPage(String mainPage) {
+        this.mainPage = mainPage;
+    }
+
+    public int getMaxLimit() {
+        return maxLimit;
+    }
+
+    public void setMaxLimit(int maxLimit) {
+        this.maxLimit = maxLimit;
+    }
 }

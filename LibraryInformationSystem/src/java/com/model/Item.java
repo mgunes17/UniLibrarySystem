@@ -1,4 +1,4 @@
-package model;
+package com.model;
 
 import java.io.Serializable;
 import javax.persistence.Column;
@@ -8,14 +8,14 @@ import javax.persistence.Table;
 
 
 @Entity
-@Table(name="items")
+@Table(name="item")
 public class Item implements Serializable{
     @Id
     @Column(name="item_no")
     private int itemNo;
     @Column(name="state", nullable=false)
     private int state;
-    @Column(name="current_user")
+    @Column(name="current__user")
     private String currentUser;
     @Column(name="item_type", nullable=false)
     private int itemType;

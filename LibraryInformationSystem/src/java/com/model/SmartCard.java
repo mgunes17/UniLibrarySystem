@@ -1,20 +1,23 @@
-package model;
+package com.model;
 
+import java.io.Serializable;
 import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
 
 @Entity
 @Table(name="smart_card")
-public class SmartCard {
+public class SmartCard implements Serializable {
     @Id
     @Column(name="card_no")
     private int cardNo;
     @Column(name="password", nullable=false)
     private String password;
     @Column(name="start_date", nullable=false)
+    @Temporal(javax.persistence.TemporalType.DATE)
     private Date startDate;
     @Column(name="balance", nullable=false)
     private int balance;
