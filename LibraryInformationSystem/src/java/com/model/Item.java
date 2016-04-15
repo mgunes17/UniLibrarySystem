@@ -15,7 +15,7 @@ public class Item implements Serializable{
     private int itemNo;
     @Column(name="state", nullable=false)
     private int state;
-    @Column(name="current_user")
+    @Column(name="current__user")
     private String currentUser;
     @Column(name="item_type", nullable=false)
     private int itemType;
