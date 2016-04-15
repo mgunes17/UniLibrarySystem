@@ -4,6 +4,7 @@
     Author     : ercan
 --%>
 
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <html>
 <head>
@@ -30,8 +31,29 @@
             </table>
         </form>
     </div>
-    <div>
-</div>        
+    <c:choose>
+	<c:when test="${state eq 0}">
+		<div id="alert2">
+                    -> Böyle bir akıllı kart bulunamadı. Lütfen kart numaranızı tekrar giriniz.
+		</div>
+	</c:when>
+	<c:when test="${state eq 1}">
+		<div id="alert2">
+                    -> Böyle bir envanter bulunamadı. Lütfen envanter numaranızı tekrar giriniz.
+		</div>
+	</c:when>
+	<c:when test="${state eq 2}">
+		<div id="alert">
+                    -> Ödünç almaya çalıştığınız envanter boşta değildir. <br>
+                    Bu envanteri ödünç alamazsınız
+		</div>
+	</c:when>
+        <c:when test="${state eq 3}">
+		<div id="alert">
+                    -> Envanter ödünç alma kapasiteniz dolmuştur.
+		</div>
+	</c:when>
+    </c:choose>
 </body>
 </html>
 
