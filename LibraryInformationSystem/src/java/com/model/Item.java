@@ -13,7 +13,7 @@ public class Item implements Serializable{
     @Id
     @Column(name="item_no")
     private int itemNo;
-    @Column(name="state", nullable=false)
+    @Column(name="item_state", nullable=false)
     private int state;
     @Column(name="current__user")
     private String currentUser;
@@ -51,5 +51,6 @@ public class Item implements Serializable{
     public void setItemType(int itemType) {
         this.itemType = itemType;
     }
+    
     
 }

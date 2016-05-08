@@ -39,6 +39,7 @@ public class HibernateSession {
                                 .addAnnotatedClass(com.model.Item.class)
                                 .addAnnotatedClass(com.model.UserType.class)
                                 .addAnnotatedClass(com.model.SmartCard.class)
+                                .addAnnotatedClass(com.model.ItemOperation.class)
                                 .buildSessionFactory(serviceRegistry);
         }
         
