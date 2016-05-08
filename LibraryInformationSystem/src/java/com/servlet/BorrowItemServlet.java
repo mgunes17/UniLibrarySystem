@@ -5,6 +5,7 @@
  */
 package com.servlet;
 
+import com.dao.HibernateSession;
 import java.io.IOException;
 import java.util.List;
 import javax.servlet.ServletException;
@@ -13,8 +14,13 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import com.model.Item;
+import com.model.ItemOperation;
 import com.model.SmartCard;
 import com.model.User;
+import java.sql.Timestamp;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -25,10 +31,10 @@ import org.hibernate.cfg.AnnotationConfiguration;
  *
  * @author ercan
  */
-@WebServlet(name = "BorrowServlet", urlPatterns = {"/borrowservlet"})
-public class BorrowServlet extends HttpServlet {
+@WebServlet(name = "BorrowServlet", urlPatterns = {"/borrowitemservlet"})
+public class BorrowItemServlet extends HttpServlet {
 
-@Override
+    @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         doPost(request, response);
     }
@@ -38,30 +44,19 @@ public class BorrowServlet extends HttpServlet {
         int cardNo = Integer.parseInt(request.getParameter("cardNo"));
         int itemNo = Integer.parseInt(request.getParameter("itemNo"));
         
-        AnnotationConfiguration config = new AnnotationConfiguration();
-        config.addAnnotatedClass(User.class);
-        config.addAnnotatedClass(Item.class);
-        config.addAnnotatedClass(SmartCard.class);
-        
-        config.configure("hibernate.cfg.xml");
-
-        SessionFactory factory = config.buildSessionFactory();
-        Session session = factory.getCurrentSession();
+        Session session = HibernateSession.getSessionFactory().openSession();
 
         Transaction tx = session.beginTransaction();
         
         SmartCard smartCard = (SmartCard) session.get(SmartCard.class, cardNo);  // getting the wanted smartcard from database with the given card no
         Item item = (Item) session.get(Item.class, itemNo); // getting the wanted item from database with the given item no
         
+        Query query = session.createQuery(
+        "from User where smartCard = "+cardNo);
+        List<User> result = query.list();
         
+        User user = (User) session.get(User.class, result.get(0).getMail());
         
-        Query query = session.createSQLQuery(
-        "select mail from users where card_no="+cardNo);
-        List result = query.list();
-        
-        User user = (User) session.get(User.class, result.get(0).toString());
-        
-
         if(smartCard == null){ // checking if the smartcard exists
             request.setAttribute("state", 0); // state 0 means smartcard is not invalid
             request.getRequestDispatcher("/kiosk.jsp").forward(request, response);
@@ -80,6 +75,25 @@ public class BorrowServlet extends HttpServlet {
         }
         else{
             // item operation tablosuna ekle
+            Calendar c=new GregorianCalendar();
+            c.add(Calendar.DATE, 30);
+            Date date = c.getTime();
+            
+            ItemOperation io = new ItemOperation();
+            io.setItemNo(itemNo);
+            io.setMail(user.getMail());
+            io.setBorrowedDate(new Timestamp(new Date().getTime()));
+            io.setExpireDate(new Timestamp(date.getTime()));
+            
+            item.setCurrentUser(user.getMail());
+            item.setState(2);
+            
+            user.setBorrowedItemCount(user.getBorrowedItemCount() + 1 );
+            
+            session.saveOrUpdate(user);
+            session.saveOrUpdate(item);
+            session.save(io);
+            tx.commit();
             request.setAttribute("state", 4); // state 4 means item is available and card is valid. borrow operation will be processed.
             request.getRequestDispatcher("/kiosk.jsp").forward(request, response); 
         }

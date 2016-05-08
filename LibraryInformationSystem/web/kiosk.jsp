@@ -25,8 +25,8 @@
                     <td><input type="text" value="" name="itemNo"/></td>
                 </tr>
                 <tr>
-                    <td colspan="2" align="left"><input type="submit" name="borrow" value="Ödünç Al" formaction="borrowservlet"></td>
-                    <td colspan="2" align="right"><input type="submit" name="return" value="İade Et" formaction="returnservlet"></td>
+                    <td colspan="1" align="left"><input type="submit" name="borrow" value="Ödünç Al" formaction="borrowitemservlet"></td>
+                    <td colspan="1" align="right"><input type="submit" name="return" value="İade Et" formaction="returnitemservlet"></td>
                 </tr>
             </table>
         </form>
@@ -39,18 +39,39 @@
 	</c:when>
 	<c:when test="${state eq 1}">
 		<div id="alert2">
-                    -> Böyle bir envanter bulunamadı. Lütfen envanter numaranızı tekrar giriniz.
+                    -> Böyle bir envanter bulunamadı. Lütfen envanter numarasını tekrar giriniz.
 		</div>
 	</c:when>
 	<c:when test="${state eq 2}">
 		<div id="alert">
                     -> Ödünç almaya çalıştığınız envanter boşta değildir. <br>
-                    Bu envanteri ödünç alamazsınız
+                    Bu envanteri ödünç alamazsınız.
 		</div>
 	</c:when>
         <c:when test="${state eq 3}">
 		<div id="alert">
                     -> Envanter ödünç alma kapasiteniz dolmuştur.
+		</div>
+	</c:when>
+        <c:when test="${state eq 4}">
+		<div id="alert">
+                    -> Envanter ödünç alınmıştır. K.gele.
+		</div>
+	</c:when>
+        <c:when test="${state eq 4}">
+		<div id="alert">
+                    -> İade etmeye çalıştığınız envanter üzerinde iade işlemi yapılamaz.
+		</div>
+	</c:when>
+        <c:when test="${state eq 5}">
+		<div id="alert">
+                    -> Üzerinize kayıtlı envanter bulunmamaktadır. İade işlemi <br>
+                    yapamazsınız.
+		</div>
+	</c:when>
+        <c:when test="${state eq 6}">
+		<div id="alert">
+                    -> İade işleminiz tamamlanmıştır.
 		</div>
 	</c:when>
     </c:choose>
