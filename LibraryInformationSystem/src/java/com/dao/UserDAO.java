@@ -63,8 +63,22 @@ public class UserDAO {
         catch(Exception e){
             session.close();
             url = "aaaa.jsp";
-        }
-        
+        }  
         return url; //null değişecek
+    }
+    
+    public int getMaxLimitCount(int type){
+        int limit = 0 ;
+        try{
+            Query query = session.createQuery(
+            "from UserType where typeNo="+type);
+            List<UserType> result = query.list();
+            
+            limit = result.get(0).getMaxLimit();
+        }
+        catch(Exception e){
+            System.err.println("hata");
+        }
+        return limit;
     }
 }

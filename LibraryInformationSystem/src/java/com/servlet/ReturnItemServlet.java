@@ -19,6 +19,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -43,37 +44,28 @@ public class ReturnItemServlet extends HttpServlet {
         int itemNo = Integer.parseInt(request.getParameter("itemNo"));
         
         Session session = HibernateSession.getSessionFactory().openSession();
-
         Transaction tx = session.beginTransaction();
+        HttpSession httpsession = request.getSession();
         
         SmartCard smartCard = (SmartCard) session.get(SmartCard.class, cardNo);  // getting the wanted smartcard from database with the given card no
         Item item = (Item) session.get(Item.class, itemNo); // getting the wanted item from database with the given item no
         
-        Query query = session.createSQLQuery(
-        "select mail from users where card_no="+cardNo);
-        List result = query.list();
-        String mail = result.get(0).toString();
-        User user = (User) session.get(User.class, mail);
+        Query query = session.createQuery(
+        "from User where smartCard = "+cardNo);
+        List<User> result = query.list();
         
+        User user = (User) session.get(User.class, result.get(0).getMail());
+        System.err.println(user.getMail());
         if(smartCard == null){ // checking if the smartcard exists
-            request.setAttribute("state", 0); // state 0 means smartcard is not invalid
-            request.getRequestDispatcher("/kiosk.jsp").forward(request, response);
+            httpsession.setAttribute("state", 0); // state 0 means smartcard is not invalid
         }
         else if(item == null){ // checking if the item exists
-            request.setAttribute("state", 1); // state 1 means item is not invalid
-            request.getRequestDispatcher("/kiosk.jsp").forward(request, response);
+            httpsession.setAttribute("state", 1); // state 1 means item is not invalid
         }
-        else if(item.getState() != 2){ // checking if the item is free
-            request.setAttribute("state", 4); // state 4 means item is not borrowed
-            request.getRequestDispatcher("/kiosk.jsp").forward(request, response);
+        else if(item.getCurrentUser() == null || !item.getCurrentUser().equals(user.getMail())){ // checking if user owns the item 
+            httpsession.setAttribute("state", 5); // state 5 means item is not taken by the user
         }
-        else if(user.getBorrowedItemCount() == 0){ // make it parametric . checking if the user has the maxItemCount 
-            request.setAttribute("state", 5); // state 5 means user has no item
-            request.getRequestDispatcher("/kiosk.jsp").forward(request, response);
-        }
-        else{
-            // item operation tablosuna ekle
-            
+        else{            
             Query query2 = session.createQuery(
             "from ItemOperation where returnedDate is NULL and item_no="+itemNo);
             List<ItemOperation> result2 = query2.list();
@@ -87,13 +79,30 @@ public class ReturnItemServlet extends HttpServlet {
             
             user.setBorrowedItemCount(user.getBorrowedItemCount() - 1 );
             
+            if(io.getExpireDate().before(io.getReturnedDate())){
+                long start = io.getReturnedDate().getTime();
+                long end = io.getExpireDate().getTime();
+                long diffTime = start - end;
+                long diffDays = diffTime / (1000 * 60 * 60 * 24);
+                Integer difference = (int) (long) diffDays;
+                
+                int penalty = smartCard.getBalance() - difference;
+                
+                smartCard.setBalance(penalty);
+                httpsession.setAttribute("state", 9); // state 8 means penalty was enforced
+                httpsession.setAttribute("amount", penalty * -1); // amount of penalty
+            }
+            else{
+                httpsession.setAttribute("state", 7); // state 7 means item is returned without penalty.
+            }
+            
             session.saveOrUpdate(user);
             session.saveOrUpdate(item);
             session.save(io);
             tx.commit();
-            request.setAttribute("state", 6); // state 6 means item is returned succesfully.
-            request.getRequestDispatcher("/kiosk.jsp").forward(request, response); 
+            
         }
+        response.sendRedirect("kiosk.jsp");
     }
 
 }
