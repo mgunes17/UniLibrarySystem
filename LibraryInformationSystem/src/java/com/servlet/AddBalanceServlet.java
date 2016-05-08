@@ -1,6 +1,7 @@
 package com.servlet;
 
 import com.dao.SmartCardDAO;
+import com.model.SmartCard;
 import com.model.User;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -26,13 +27,13 @@ public class AddBalanceServlet extends HttpServlet {
         
         int amount = Integer.parseInt(request.getParameter("amount"));
         
-        HttpSession session = request.getSession();
-        User user = (User) session.getAttribute("user");
+        HttpSession httpsession = request.getSession();
+        User user = (User) httpsession.getAttribute("user");
         
         boolean result = new SmartCardDAO().addBalance(user.getSmartCard(), amount);
-        
+        SmartCard smartCard = new SmartCardDAO().getSmartCard(user.getSmartCard());
         if(result == false){
-            request.setAttribute("result", false);
+            httpsession.setAttribute("result", 0);
             //jsp de yazdır
             //işlem gerçekleşmedi
             //paranız +0 olacak şekilde yükleme yapabilirsiniz
@@ -40,7 +41,8 @@ public class AddBalanceServlet extends HttpServlet {
         else{
             //para yüklendi
             //toplam paranız xxx 
-            request.setAttribute("result", true);
+            httpsession.setAttribute("balance", smartCard.getBalance());
+            httpsession.setAttribute("result", 1);
         }
         
         response.sendRedirect("addbalance.jsp");

@@ -58,20 +58,24 @@
                     -> Envanter ödünç alınmıştır. K.gele.
 		</div>
 	</c:when>
-        <c:when test="${state eq 4}">
-		<div id="alert">
-                    -> İade etmeye çalıştığınız envanter üzerinde iade işlemi yapılamaz.
-		</div>
-	</c:when>
         <c:when test="${state eq 5}">
 		<div id="alert">
-                    -> Üzerinize kayıtlı envanter bulunmamaktadır. İade işlemi <br>
-                    yapamazsınız.
+                    -> Bu envanter sizin üzerinize kayıtlı değildir. İade işlemi yapamazsınız.
 		</div>
 	</c:when>
-        <c:when test="${state eq 6}">
+        <c:when test="${state eq 7}">
 		<div id="alert">
                     -> İade işleminiz tamamlanmıştır.
+		</div>
+	</c:when>
+        <c:when test="${state eq 8}">
+		<div id="alert">
+                    -> Yeterli bakiyeniz bulunmamaktadır.
+		</div>
+	</c:when>
+        <c:when test="${state eq 9}">
+		<div id="alert">
+                    -> Envanteri geç getirdiğiniz için ceza uygulanmıştır. Ceza miktarı : ${amount}
 		</div>
 	</c:when>
     </c:choose>

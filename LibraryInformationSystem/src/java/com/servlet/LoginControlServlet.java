@@ -8,6 +8,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 @WebServlet(name = "LoginControlServlet", urlPatterns = {"/logincontrolservlet"})
 public class LoginControlServlet extends HttpServlet {
@@ -23,13 +24,13 @@ public class LoginControlServlet extends HttpServlet {
         
         int cardNo = Integer.parseInt(request.getParameter("card_no"));
         String password = request.getParameter("password");
+        HttpSession sess = request.getSession();
         
         User user = new UserDAO().login(cardNo, password);
+        sess.setAttribute("user", user);
         String url = new UserDAO().findURL(user);
         
-        
-        response.sendRedirect(url);
-                                         
+        response.sendRedirect(url);                                 
     }
 
 

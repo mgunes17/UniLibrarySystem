@@ -5,6 +5,7 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
     <head>
@@ -14,7 +15,7 @@
 <body>
     <h1>Akıllı kartınıza para yükleyin</h1>
     
-    <form method="POST" action="">
+    <form method="POST" action="addbalanceservlet">
         Kredi kartı numaranız</br>
         <input type="text" name="cardNo"/></br>
         Yüklemek istediğiniz değer</br>
@@ -22,6 +23,16 @@
         
         <input type="submit" value="Yükle"/>
     </form>
+    <c:choose>
+        <c:when test="${result eq 0}">
+            -> Bakiye yükleme işlemi gerçekleştirilemedi. <br>
+            Bakiyeniz +0 olacak şekilde para yükleyebilirsiniz.
+        </c:when>
+        <c:when test="${result eq 1}">
+            -> Bakiye yükleme işlemi başarıyla gerçekleşti. <br>
+            Mevcut bakiyeniz : ${balance}
+        </c:when>
+    </c:choose>
     
     <%-- AddBalanceServletteki yorumları yazdır --%>
 </body>
