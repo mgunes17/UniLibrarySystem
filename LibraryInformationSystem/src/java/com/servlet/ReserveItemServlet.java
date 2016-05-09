@@ -54,15 +54,14 @@ public class ReserveItemServlet extends HttpServlet {
         // getting the wanted item from database with the given item no
         Item item = (Item) session.get(Item.class, itemNo); 
         
+        
         Query query = session.createQuery(
         "from User where smartCard = "+cardNo);
         List<User> result = query.list();
         
-        
         Query query2 = session.createQuery(
-        "from ItemReservation where state = 5");
+        "from ItemReservation where (state = 5 or state = 1 ) and itemNo = "+itemNo);
         List<ItemReservation> result2 = query2.list();
-        
         
         User user = (User) session.get(User.class, result.get(0).getMail());
         UserType userType = (UserType) session.get(UserType.class, user.getUserType());
@@ -91,7 +90,7 @@ public class ReserveItemServlet extends HttpServlet {
             session.saveOrUpdate(user);
             session.save(ir);
             tx.commit();
-            httpsession.setAttribute("state", 4); // state 4 means item is available and card is valid. borrow operation will be processed.
+            httpsession.setAttribute("state", 11); // state 4 means item is available and card is valid. borrow operation will be processed.
         }
         response.sendRedirect("kiosk.jsp");
     }
