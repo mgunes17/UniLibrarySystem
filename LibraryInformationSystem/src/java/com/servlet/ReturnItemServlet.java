@@ -8,11 +8,15 @@ package com.servlet;
 import com.dao.HibernateSession;
 import com.model.Item;
 import com.model.ItemOperation;
+import com.model.ItemReservation;
 import com.model.SmartCard;
 import com.model.User;
+import com.model.UserType;
 import java.io.IOException;
 import java.sql.Timestamp;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -22,9 +26,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import org.hibernate.Query;
 import org.hibernate.Session;
-import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
-import org.hibernate.cfg.AnnotationConfiguration;
 
 /**
  *
@@ -55,7 +57,7 @@ public class ReturnItemServlet extends HttpServlet {
         List<User> result = query.list();
         
         User user = (User) session.get(User.class, result.get(0).getMail());
-        System.err.println(user.getMail());
+        UserType userType = (UserType) session.get(UserType.class, user.getUserType());
         if(smartCard == null){ // checking if the smartcard exists
             httpsession.setAttribute("state", 0); // state 0 means smartcard is not invalid
         }
@@ -70,11 +72,26 @@ public class ReturnItemServlet extends HttpServlet {
             "from ItemOperation where returnedDate is NULL and item_no="+itemNo);
             List<ItemOperation> result2 = query2.list();
             
-            ItemOperation io = (ItemOperation) session.get(ItemOperation.class, result2.get(0).getOperationId());
+            Query query3 = session.createQuery(
+            "from ItemReservation where state = 5 and itemNo = "+itemNo);
+            List<ItemReservation> result3 = query3.list();
             
+            ItemOperation io = (ItemOperation) session.get(ItemOperation.class, result2.get(0).getOperationId());
             io.setReturnedDate(new Timestamp(new Date().getTime()));
+            
             item.setCurrentUser(null);
-            item.setState(0);
+            if(result3.isEmpty())
+                item.setState(0);
+            else
+                item.setState(1);
+            
+            Calendar c=new GregorianCalendar();
+            c.add(Calendar.DATE, userType.getMaxReserveDay());
+            Date date = c.getTime();
+            
+            result3.get(0).setState(1);
+            result3.get(0).setReservationStart(new Timestamp(new Date().getTime()));
+            result3.get(0).setReservationEnd(new Timestamp(date.getTime()));
             
             user.setBorrowedItemCount(user.getBorrowedItemCount() - 1 );
             

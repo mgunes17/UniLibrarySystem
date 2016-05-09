@@ -86,6 +86,11 @@
                     Bu envanteri rezerve edemezsiniz.
                 </div>
 	</c:when>
+        <c:when test="${state eq 11}">
+		<div id="alert">
+                    -> Envanter rezerve edilmiştir. K.gele.
+                </div>
+	</c:when>
     </c:choose>
 </body>
 </html>

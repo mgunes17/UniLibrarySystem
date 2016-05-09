@@ -15,6 +15,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import com.model.Item;
 import com.model.ItemOperation;
+import com.model.ItemReservation;
 import com.model.SmartCard;
 import com.model.User;
 import com.model.UserType;
@@ -57,17 +58,27 @@ public class BorrowItemServlet extends HttpServlet {
         "from User where smartCard = "+cardNo);
         List<User> result = query.list();
         
+        Query query2 = session.createQuery(
+        "from ItemReservation where (state = 5 or state = 1 ) and itemNo = "+itemNo);
+        List<ItemReservation> result2 = query2.list();
+        
         User user = (User) session.get(User.class, result.get(0).getMail());
         UserType userType = (UserType) session.get(UserType.class, user.getUserType());
-
+        
         if(smartCard == null){ // checking if the smartcard exists
             httpsession.setAttribute("state", 0); // state 0 means smartcard is not invalid
         }
         else if(item == null){ // checking if the item exists
             httpsession.setAttribute("state", 1); // state 1 means item is not invalid
         }
-        else if(item.getState() != 0){ // checking if the item is free
-            httpsession.setAttribute("state", 2); // state 2 means item is not free
+        else if(item.getState() == 1){ 
+            if(!result2.get(0).getMail().equals(user.getMail())){
+                httpsession.setAttribute("state", 2); // state 2 means item is not free 
+            }
+        }
+        else if(item.getState() == 5 || item.getState() == 2 ){
+            httpsession.setAttribute("state", 2); // state 2 means item is not free 
+                System.err.println("asdasd");
         }
         else if(user.getBorrowedItemCount() == userType.getMaxLimit()){ // make it parametric . checking if the user has the maxItemCount 
             httpsession.setAttribute("state", 3); // state 3 means user has the maxItemCount
@@ -89,6 +100,8 @@ public class BorrowItemServlet extends HttpServlet {
             io.setMail(user.getMail());
             io.setBorrowedDate(new Timestamp(new Date().getTime()));
             io.setExpireDate(new Timestamp(date.getTime()));
+            
+            result2.get(0).setState(4);
             
             item.setCurrentUser(user.getMail());
             item.setState(2);

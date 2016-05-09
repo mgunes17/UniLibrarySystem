@@ -5,6 +5,7 @@
  */
 package com.model;
 
+import java.io.Serializable;
 import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -18,11 +19,11 @@ import javax.persistence.Temporal;
  */
 @Entity
 @Table(name="item_reservation")
-public class ItemReservation {
+public class ItemReservation implements Serializable {
     @Id
     @Column(name="mail", nullable=false)
     private String mail;
-    
+    @Id
     @Column(name="item_no", nullable=false)
     private int itemNo;
     
