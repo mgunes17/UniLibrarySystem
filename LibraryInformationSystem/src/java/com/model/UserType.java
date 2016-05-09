@@ -26,7 +26,17 @@ public class UserType {
     private String mainPage;
     @Column(name = "max_limit")
     private int maxLimit;
+    @Column(name = "max_reserve_day")
+    private int maxReserveDay;
 
+    public int getMaxReserveDay() {
+        return maxReserveDay;
+    }
+
+    public void setMaxReserveDay(int maxReserveDay) {
+        this.maxReserveDay = maxReserveDay;
+    }
+    
     public int getTypeNo() {
         return typeNo;
     }

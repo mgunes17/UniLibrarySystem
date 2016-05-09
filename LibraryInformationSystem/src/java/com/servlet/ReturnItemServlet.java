@@ -73,7 +73,6 @@ public class ReturnItemServlet extends HttpServlet {
             ItemOperation io = (ItemOperation) session.get(ItemOperation.class, result2.get(0).getOperationId());
             
             io.setReturnedDate(new Timestamp(new Date().getTime()));
-            
             item.setCurrentUser(null);
             item.setState(0);
             
@@ -86,11 +85,12 @@ public class ReturnItemServlet extends HttpServlet {
                 long diffDays = diffTime / (1000 * 60 * 60 * 24);
                 Integer difference = (int) (long) diffDays;
                 
-                int penalty = smartCard.getBalance() - difference;
+                int newBalance = smartCard.getBalance() - difference;
                 
-                smartCard.setBalance(penalty);
+                smartCard.setBalance(newBalance);
                 httpsession.setAttribute("state", 9); // state 8 means penalty was enforced
-                httpsession.setAttribute("amount", penalty * -1); // amount of penalty
+                httpsession.setAttribute("amount", difference); // amount of penalty
+                httpsession.setAttribute("newbalance", newBalance);
             }
             else{
                 httpsession.setAttribute("state", 7); // state 7 means item is returned without penalty.
@@ -100,7 +100,6 @@ public class ReturnItemServlet extends HttpServlet {
             session.saveOrUpdate(item);
             session.save(io);
             tx.commit();
-            
         }
         response.sendRedirect("kiosk.jsp");
     }

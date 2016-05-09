@@ -17,16 +17,17 @@
         <form name="operate" method="post">
             <table id="choosetable">
                 <tr>
-                    <td>Kart no:</td>
-                    <td><input type="text" value="" name="cardNo"/></td>
+                    <td colspan="1">Kart no:</td>
+                    <td colspan="2"><input type="text" value="" name="cardNo"/></td>
                 </tr>
                 <tr>
-                    <td>Envanter no:</td>
-                    <td><input type="text" value="" name="itemNo"/></td>
+                    <td colspan="1">Envanter no:</td>
+                    <td colspan="2"><input type="text" value="" name="itemNo"/></td>
                 </tr>
                 <tr>
-                    <td colspan="1" align="left"><input type="submit" name="borrow" value="Ödünç Al" formaction="borrowitemservlet"></td>
-                    <td colspan="1" align="right"><input type="submit" name="return" value="İade Et" formaction="returnitemservlet"></td>
+                    <td align="left"><input type="submit" name="borrow" value="Ödünç Al" formaction="borrowitemservlet"></td>
+                    <td align="center"><input type="submit" name="return" value="İade Et" formaction="returnitemservlet"></td>
+                    <td align="right"><input type="submit" name="reserve" value="Rezerve Et" formaction="reserveitemservlet"></td>
                 </tr>
             </table>
         </form>
@@ -75,8 +76,15 @@
 	</c:when>
         <c:when test="${state eq 9}">
 		<div id="alert">
-                    -> Envanteri geç getirdiğiniz için ceza uygulanmıştır. Ceza miktarı : ${amount}
+                    -> Envanteri geç getirdiğiniz için ceza uygulanmıştır. <br>
+                    Ceza miktarı : ${amount} TL , Yeni Bakiye : ${newbalance}
 		</div>
+	</c:when>
+        <c:when test="${state eq 10}">
+		<div id="alert">
+                    -> Rezever etmeye çalıştığınız envanter zaten rezervelidir. <br>
+                    Bu envanteri rezerve edemezsiniz.
+                </div>
 	</c:when>
     </c:choose>
 </body>
