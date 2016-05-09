@@ -4,11 +4,14 @@ import java.io.Serializable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
 import javax.persistence.Table;
 
 
 @Entity
 @Table(name="item")
+@Inheritance(strategy=InheritanceType.JOINED)
 public class Item implements Serializable{
     @Id
     @Column(name="item_no")
