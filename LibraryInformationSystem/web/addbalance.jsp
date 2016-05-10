@@ -13,9 +13,9 @@
     <title>Bakiye Yükle</title>
 </head>
 <body>
-    <h1>Akıllı kartınıza para yükleyin</h1>
+    <p align='center' style="font-weight: bold; font-size: 30px; color: red;"> Akıllı kartınıza para yükleyin </p>
     
-    <form method="POST" action="addbalanceservlet">
+    <form align='center' method="POST" action="addbalanceservlet">
         Kredi kartı numaranız</br>
         <input type="text" name="cardNo"/></br>
         Yüklemek istediğiniz değer</br>
@@ -23,14 +23,25 @@
         
         <input type="submit" value="Yükle"/>
     </form>
+    <form name="bookform" method="post" action="userpageservletprep">
+        <table id="menu" align='center'>
+            <tr>
+                <td colspan='2' align="center"><input type="submit" value="Menüye Dön"></td>
+            </tr>
+        </table>
+    </form>
     <c:choose>
         <c:when test="${result eq 0}">
-            -> Bakiye yükleme işlemi gerçekleştirilemedi. <br>
-            Bakiyeniz +0 olacak şekilde para yükleyebilirsiniz.
+            <div align='center'>
+                -> Bakiye yükleme işlemi gerçekleştirilemedi. <br>
+                Bakiyeniz +0 olacak şekilde para yükleyebilirsiniz.
+            </div>
         </c:when>
         <c:when test="${result eq 1}">
-            -> Bakiye yükleme işlemi başarıyla gerçekleşti. <br>
+            <div align='center'>
+                -> Bakiye yükleme işlemi başarıyla gerçekleşti. <br>
             Mevcut bakiyeniz : ${balance}
+            </div>  
         </c:when>
     </c:choose>
     

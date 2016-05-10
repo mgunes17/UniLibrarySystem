@@ -89,9 +89,11 @@ public class ReturnItemServlet extends HttpServlet {
             c.add(Calendar.DATE, userType.getMaxReserveDay());
             Date date = c.getTime();
             
-            result3.get(0).setState(1);
-            result3.get(0).setReservationStart(new Timestamp(new Date().getTime()));
-            result3.get(0).setReservationEnd(new Timestamp(date.getTime()));
+            if(!result3.isEmpty()){
+                result3.get(0).setState(1);
+                result3.get(0).setReservationStart(new Timestamp(new Date().getTime()));
+                result3.get(0).setReservationEnd(new Timestamp(date.getTime()));
+            }
             
             user.setBorrowedItemCount(user.getBorrowedItemCount() - 1 );
             

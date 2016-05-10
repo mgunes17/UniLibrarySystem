@@ -7,15 +7,14 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <title>Anasayfa</title>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Anasayfa</title>
 </head>
 <body>
-    <h2>Aydınlık Üniversitesi Kütüphane Bilgi Sistemine Hoşgeldiniz! </h2>
-    <h3>Lütfen Giriş Yapınız </h3>
-    
-    <form action ="logincontrolservlet" method ="POST">
+    <p align='center' style="font-weight: bold; font-size: 30px; color: red;"> Aydınlık Üniversitesi Kütüphane Bilgi Sistemine Hoşgeldiniz! </p>
+    <p align='center' style="font-weight: bold; font-size: 30px; color: red;"> Lütfen Giriş Yapınız  </p>
+    <form align='center' action ="logincontrolservlet" method ="POST">
         Akıllı Kart Numaranız:</br>
         <input type="text" name="card_no"/></br>
         Akıllı Kart Şifreniz:</br>
