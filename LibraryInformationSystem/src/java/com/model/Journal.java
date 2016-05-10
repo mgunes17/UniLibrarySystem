@@ -1,6 +1,5 @@
 package com.model;
 
-import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.PrimaryKeyJoinColumn;
@@ -15,7 +14,7 @@ public class Journal extends Item{
     @Column(name="issue", nullable=false)
     private int issue;
     @Column(name="publication_date")
-    private Date publicationDate;
+    private String publicationDate;
 
     public String getEditor() {
         return editor;
@@ -33,11 +32,11 @@ public class Journal extends Item{
         this.issue = issue;
     }
 
-    public Date getPublicationDate() {
+    public String getPublicationDate() {
         return publicationDate;
     }
 
-    public void setPublicationDate(Date publicationDate) {
+    public void setPublicationDate(String publicationDate) {
         this.publicationDate = publicationDate;
     }
     

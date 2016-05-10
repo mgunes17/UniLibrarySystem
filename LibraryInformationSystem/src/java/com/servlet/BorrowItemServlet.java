@@ -71,14 +71,17 @@ public class BorrowItemServlet extends HttpServlet {
         else if(item == null){ // checking if the item exists
             httpsession.setAttribute("state", 1); // state 1 means item is not invalid
         }
-        else if(item.getState() == 1){ 
-            if(!result2.get(0).getMail().equals(user.getMail())){
-                httpsession.setAttribute("state", 2); // state 2 means item is not free 
-            }
-        }
-        else if(item.getState() == 5 || item.getState() == 2 ){
-            httpsession.setAttribute("state", 2); // state 2 means item is not free 
-                System.err.println("asdasd");
+//        else if(item.getState() == 1){ 
+//            if(!result2.get(0).getMail().equals(user.getMail())){
+//                httpsession.setAttribute("state", 2); // state 2 means item is not free 
+//            }
+//        }
+//        else if(item.getState() == 5 || item.getState() == 2 ){
+//            httpsession.setAttribute("state", 2); // state 2 means item is not free 
+//                System.err.println("asdasd");
+//        }
+        else if(item.getState() != 0){
+            httpsession.setAttribute("state", 2); // state 3 means user has the maxItemCount
         }
         else if(user.getBorrowedItemCount() == userType.getMaxLimit()){ // make it parametric . checking if the user has the maxItemCount 
             httpsession.setAttribute("state", 3); // state 3 means user has the maxItemCount
@@ -101,7 +104,8 @@ public class BorrowItemServlet extends HttpServlet {
             io.setBorrowedDate(new Timestamp(new Date().getTime()));
             io.setExpireDate(new Timestamp(date.getTime()));
             
-            result2.get(0).setState(4);
+            if(!result2.isEmpty())
+                result2.get(0).setState(4);
             
             item.setCurrentUser(user.getMail());
             item.setState(2);
